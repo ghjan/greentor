@@ -1,5 +1,7 @@
 build/
 *.pyc
 dist/
+.idea/
 *.egg-info/
 *.swp
+settings_local.py

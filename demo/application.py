@@ -4,8 +4,10 @@
 import core.monkey_patch
 
 import os
+
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "demo.settings")
 import django
+
 django.setup()
 
 from tornado.options import options, define, parse_command_line
@@ -19,7 +21,7 @@ from django.conf import settings
 
 import app.urls
 
-define('port', type=int, default=8000)
+define('port', type=int, default=8080)
 
 tornado_settings = {'debug': settings.DEBUG}
 

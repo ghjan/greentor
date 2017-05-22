@@ -74,40 +74,53 @@ WSGI_APPLICATION = 'demo.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'NAME': 'test',
+#         'HOST': '127.0.0.1',
+#         # 'ENGINE': 'django.db.backends.mysql',
+#         'ENGINE': 'core',
+#         'USER': 'root',
+#         'PASSWORD': '',
+#         'OPTIONS': {
+#             'MAX_SIZE': 32,  # 连接池最大连接数
+#             'KEEP_ALIVE': 7200,  # 连接保持ping周期
+#         },
+#     }
+# }
 DATABASES = {
     'default': {
-        'NAME': 'test',
+        'NAME': 'testdb',
         'HOST': '127.0.0.1',
         # 'ENGINE': 'django.db.backends.mysql',
         'ENGINE': 'core',
-        'USER': 'root',
+        'USER': 'user',
         'PASSWORD': '',
         'OPTIONS': {
-            'MAX_SIZE': 32, # 连接池最大连接数
-            'KEEP_ALIVE': 7200, # 连接保持ping周期
+            'MAX_SIZE': 32,  # 连接池最大连接数
+            'KEEP_ALIVE': 7200,  # 连接保持ping周期
         },
     }
 }
-
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME':
-        'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+            'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
     {
         'NAME':
-        'django.contrib.auth.password_validation.MinimumLengthValidator',
+            'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
     {
         'NAME':
-        'django.contrib.auth.password_validation.CommonPasswordValidator',
+            'django.contrib.auth.password_validation.CommonPasswordValidator',
     },
     {
         'NAME':
-        'django.contrib.auth.password_validation.NumericPasswordValidator',
+            'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
 
@@ -132,3 +145,8 @@ DATETIME_FORMAT = 'Y-m-d H:i:s'
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+
+try:
+    from settings_local import *
+except ImportError:
+    pass

@@ -26,6 +26,6 @@ MEDIA_ROOT = os.path.join(os.path.dirname(django.__file__), 'contrib', 'admin',
 admin.autodiscover()
 
 urlpatterns = [
-    url(r'^static/admin/(?P<path>.*)$', static.serve, {'document_root': MEDIA_ROOT, 'show_indexes': False}),
     url(r'^admin/', admin.site.urls),
+    url(r'^static/admin/(?P<path>.*)$', static.serve, {'document_root': MEDIA_ROOT, 'show_indexes': False}),
 ]
