@@ -4,4 +4,7 @@ greenlet==0.4.10
 greentor==0.1
 PyMySQL==0.7.4
 tornado==4.3
-
+MySQL-python==1.2.5
+oss2==2.2.0
+aliyun-python-sdk-sts
+#yum install ImageMagick-devel

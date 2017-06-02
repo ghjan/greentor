@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app',
     'core',
+    'myfarm'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -146,7 +147,9 @@ DATETIME_FORMAT = 'Y-m-d H:i:s'
 
 STATIC_URL = '/static/'
 
+DJANGO_USER = 'www'
 try:
     from settings_local import *
 except ImportError:
     pass
+

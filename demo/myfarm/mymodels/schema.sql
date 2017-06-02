@@ -1,0 +1,112 @@
+-- Copyright 2017 ifuwo farm
+
+
+SET SESSION storage_engine = 'InnoDB';
+ALTER DATABASE CHARACTER SET 'utf8';
+
+DROP TABLE IF EXISTS userapp;
+CREATE TABLE userapp(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    no VARCHAR(32) NOT NULL UNIQUE,
+    user_id INT NOT NULL REFERENCES user(id),
+    create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    modify_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    name VARCHAR(128) NOT NULL UNIQUE,
+    key VARCHAR(128) NOT NULL UNIQUE,
+    callback VARCHAR(256) NOT NULL,
+    resource_callback VARCHAR(256),
+    render_state_callback VARCHAR(256),
+    status INT DEFAULT 0
+)
+
+
+DROP TABLE IF EXISTS backup;
+CREATE TABLE backup(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    no VARCHAR(32) NOT NULL UNIQUE,
+    create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    modify_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    renderer_type SMALLINT NOT NULL DEFAULT 0,
+    priority SMALLINT NOT NULL DEFAULT 0,
+    duration INT DEFAULT 0,
+    node_no VARCHAR(32),
+    app_no VARCHAR(128),
+    callback_type INT DEFAULT 0,
+    time_limit SMALLINT DEFAULT 0,
+    status INT DEFAULT 0,
+    render_retry SMALLINT DEFAULT 0
+)
+
+DROP TABLE IF EXISTS item;
+CREATE TABLE item(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    no VARCHAR(32) NOT NULL UNIQUE,
+    create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    modify_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    input LONGTEXT
+)
+
+DROP TABLE IF EXISTS node;
+CREATE TABLE node(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    no VARCHAR(32) NOT NULL UNIQUE,
+    create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    modify_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    ip VARCHAR(64) DEFAULT '',
+    status INT NOT NULL DEFAULT 0,
+    renderer_type SMALLINT DEFAULT 0,
+    renderer_version VARCHAR DEFAULT '0.0.0.0',
+    octane_id VARCHAR(128) DEFAULT '',
+    lower_priority INT DEFAULT 0,
+    upper_priority INT DEFAULT 999999,
+    reserved BOOL DEFAULT TRUE,
+    desc VARCHAR(64) DEFAULT ''
+)
+
+DROP TABLE IF EXISTS resourcenode;
+CREATE TABLE resourcenode(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    no VARCHAR(32) NOT NULL UNIQUE,
+    create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    modify_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    ip VARCHAR(64) DEFAULT '',
+    item_path VARCHAR(128) DEFAULT '',
+    status INT DEFAULT 0
+)
+
+DROP TABLE IF EXISTS farmserver;
+CREATE TABLE farmserver(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    no VARCHAR(32) NOT NULL UNIQUE,
+    create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    modify_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    ip VARCHAR(64) DEFAULT '',
+    domain VARCHAR(256) DEFAULT '',
+    name VARCHAR(64) DEFAULT '',
+    status INT DEFAULT 0,
+    render_type INT DEFAULT 3 INDEX,
+    load FLOAT,
+    is_local BOOLEAN DEFAULT FALSE
+)
+
+DROP TABLE IF EXISTS task;
+CREATE TABLE task(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    no VARCHAR(32) NOT NULL UNIQUE,
+    create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    modify_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    renderer_type SMALLINT DEFAULT 0,
+    priority SMALLINT DEFAULT 0,
+    duration INT DEFAULT 0,
+    node_no VARCHAR(32),
+    app_no VARCHAR(128),
+    callback_type INT DEFAULT 0,
+    callback_extra VARCHAR(512),
+    callback_status SMALLINT DEFAULT 0,
+    input LONGTEXT,
+    input_fname VARCHAR DEFAULT 0,
+    output_type INT DEFAULT 0,
+    time_limit SMALLINT DEFAULT 0,
+    status INT DEFAULT 0,
+    render_retry SMALLINT DEFAULT 0
+)
